@@ -1,0 +1,83 @@
+﻿<head>
+    <title>File Browser</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-2.1.3.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    @model FileBrowser.Models.FileBrowser
+    @{
+        ViewBag.Title = "Index";
+        var filebrowser = Model;
+    }
+
+    <style>
+        #feedback {
+            font-size: 1.2em;
+        }
+
+        #selectable .ui-selecting {
+            background: #FECA40;
+        }
+
+        #selectable .ui-selected {
+            background: #F39814;
+            color: white;
+        }
+
+        #selectable {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        #selectable li {
+                margin: 1px;
+                padding: 0.4em;
+                font-size: 0.8em;
+                height: 18px;
+                vertical-align:central;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $("#selectable").selectable({
+                stop: function () {
+                    var result = $("#select-result").empty();
+                    $(".ui-selected", this).each(function () {
+                        var index = $("#selectable li").index(this);
+                        var id = "li " + index.toString();
+                        var li = document.getElementById(id);
+                        var name = li.innerText;
+                        result.append(" " + (name));
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+
+<body>
+    <div id="left" class="bodyRect">
+        <div>
+
+            <p id="feedback">
+                <span>You've selected:</span> <span id="select-result">none</span>.
+            </p>
+                <ol id="selectable">
+                    @foreach (string filename in filebrowser.Files)
+                    {
+                        int index = filebrowser.Files.IndexOf(filename);
+                        <li id="li @index" class="ui-widget-content">@filename</li>
+                    }
+                </ol>
+        </div>
+    </div>
+    <div id="right" class="bodyRect">
+    <div>
+        Pdf displayed here.
+    </div>
+    </div>
+    <span class="clearfix"></span>
+</body>

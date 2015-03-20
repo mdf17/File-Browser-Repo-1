@@ -1,0 +1,1 @@
+C:\Users\Matthew D. Ferrante\Documents\Visual Studio 2013\Projects\FileBrowser\FileBrowser.Tests\obj\Debug\FileBrowser.Tests.csprojResolveAssemblyReference.cache
